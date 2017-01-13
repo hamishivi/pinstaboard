@@ -1,0 +1,30 @@
+{
+  "name": "pinstaboard",
+  "version": "1.0.0",
+  "description": "PintsaBoard - a pinterest clone. Still in progress.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamishivi/pinstaboard.git"
+  },
+  "author": "hamishivi@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamishivi/pinstaboard/issues"
+  },
+  "homepage": "https://github.com/hamishivi/pinstaboard#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "dotenv": "^4.0.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.7.6",
+    "passport": "^0.3.2",
+    "passport-twitter": "^1.0.4"
+  }
+}
