@@ -1,5 +1,6 @@
 TODO (in this order):
 
 - better styling on images - use profile image not username for better visual style
-- ability to delete images(?)
-- ability to star images (if you want)
+- broken image detection and replacement with a placeholder image (use jquery)
+- ability to delete images - must do as part of user stories
+- ability to star images (optional)
