@@ -26,7 +26,7 @@ module.exports = function (app, passport) {
         }
         Image.find({}, function(err, data) {
             if (err) return err;
-            console.log(data);
+            //console.log(data);
             res.locals.images = data;
             res.render(path + '/public/index.ejs');
         });
@@ -65,9 +65,17 @@ module.exports = function (app, passport) {
         newImage.description = req.body.description;
         newImage.creator = req.user.twitter.displayName;
         newImage.creatorid = req.user.twitter.id;
+        newImage.creatorimage = req.user.twitter.profileimage;
         newImage.save(function(err) {
             if (err) console.log(err);
             res.redirect('/');
-        })
+        });
+    });
+    
+    app.get('/delete/:imageid', isLoggedIn, function(req, res) {
+        Image.findOneAndRemove({"_id":req.params.imageid, "creatorid": req.user.twitter.id}, function(err, data) {
+            if (err) return err;
+            res.redirect('/');
+        });
     });
 };

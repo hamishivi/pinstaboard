@@ -29,11 +29,13 @@ module.exports = function (passport) {
                if (user) {
                     return done(null, user);
                 } else {
+                    
                     var newUser = new User();
 
                     newUser.twitter.id = profile.id;
                     newUser.twitter.displayName = profile.displayName;
-
+                    newUser.twitter.profileimage = profile._json.profile_image_url_https;
+                    console.log(profile._json.profile_image_url_https)
                     newUser.save(function (err) {
                         if (err) {
                             throw err;

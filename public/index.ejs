@@ -14,8 +14,16 @@
     <div class = "container">
       <br>
     <div class="grid">
+      <div class="grid-sizer"></div>
     <% for (var i = 0; i < images.length; i++) { %>
-      <div class="grid-item"><img src="<%= images[i].imageurl %>"><p><%= images[i].description %></p><p><a href="/user/<%= images[i].creatorid %>"><%= images[i].creator %></a></p></div>
+      <div class="grid-item">
+        <img src="<%= images[i].imageurl %>" onerror="imgError(this);">
+        <p class="text-center">
+        <div id="profilediv"><a href="/user/<%= images[i].creatorid %>"><img id="profile" src="<%= images[i].creatorimage %>"></a><%= images[i].description %></p></div>
+        <% if (login && userid == images[i].creatorid) { %>
+          <br><a class="btn btn-danger btn-block" href="/delete/<%= images[i].id %>">Delete this image</a>
+        <% } %>
+      </div>
     <% } %>
     </div>
     </div>

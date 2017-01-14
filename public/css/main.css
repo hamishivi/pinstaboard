@@ -1,10 +1,24 @@
 .grid-item {
   float: left;
-  width: 200px;
+  width: 230px;
   height: auto;
   border: 2px solid hsla(0, 0%, 0%, 0.5);
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #f0f0f0;
+}
+img { width:100%; }
+
+p {
+  background-color: #d0d0d0;
 }
 
-.grid-item--width2 { width: 160px; }
-.grid-item--height2 { height: 140px; }
-img { width:100%; }
+#profile {
+  height: 40px;
+  width: auto;
+  margin-right: 5px;
+}
+
+#profilediv {
+  height: 40px;
+}
