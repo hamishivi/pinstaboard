@@ -17,7 +17,7 @@ module.exports = function (passport) {
     passport.use(new TwitterStrategy({
     consumerKey: process.env.CONSUMER_KEY,
     consumerSecret: process.env.CONSUMER_SECRET,
-    callbackURL: "https://pinstaboard-hamishivi.c9users.io/auth/twitter/callback"
+    callbackURL: "https://pinstaboard.herokuapp.com/auth/twitter/callback"
   },
     function (request, accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
