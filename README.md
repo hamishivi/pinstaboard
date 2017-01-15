@@ -1,2 +1,3 @@
-PintsaBoard - a pinterest clone.
-Still in progress.
+## PintsaBoard
+a pinterest clone, made as part of the Free Code Camp Backend Curriculum.
+Currently hosted [here](https://pinstaboard.herokuapp.com/)
