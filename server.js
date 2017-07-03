@@ -5,6 +5,7 @@ var express = require('express'),
     passport = require('passport'),
     session = require('express-session'),
     bodyParser = require('body-parser');
+var favicon = require('serve-favicon')
 var Strategy = require('passport-twitter').Strategy;
 
 var app = express();
@@ -16,7 +17,9 @@ mongoose.connect(process.env.MONGO_URI);
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/common', express.static(process.cwd() + '/app/common'));
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
+
 
 app.use(session({
     secret: 'keyboard-cat',
