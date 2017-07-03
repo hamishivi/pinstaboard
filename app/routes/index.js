@@ -6,6 +6,9 @@ var User = require('../models/users');
 var Image = require('../models/images');
 var mongoose = require('mongoose');
 
+// Just use the default promise library
+mongoose.Promise = global.Promise;
+
 module.exports = function (app, passport) {
     function isLoggedIn (req, res, next) {
         if (req.isAuthenticated()) {
@@ -18,11 +21,11 @@ module.exports = function (app, passport) {
 
     app.set('view engine', 'ejs');
 
-    // need: list of bars with name, review, number going, imageurl
     app.get('/', function (req, res) {
         res.locals.login = req.isAuthenticated();
-        if (req.isAuthenticated()) {
-            res.locals.userid = req.user.twitter.id;
+        res.locals.title = "PinstaBoard";
+        if (res.locals.login) {
+            res.locals.userid = req.user.twitter.uniqueUrl;
         }
         Image.find({}, function(err, data) {
             if (err) return err;
@@ -48,9 +51,10 @@ module.exports = function (app, passport) {
     });
     
     app.get('/user/:userid', function(req, res) {
+        res.locals.title = "PinstaBoard";
         res.locals.login = req.isAuthenticated();
         if (req.isAuthenticated()) {
-            res.locals.userid = req.user.twitter.id;
+            res.locals.userid = req.user.twitter.uniqueUrl;
         }
         Image.find({'creatorid':req.params.userid}, function(err, data) {
             if (err) return err;
@@ -64,7 +68,7 @@ module.exports = function (app, passport) {
         newImage.imageurl = req.body.imageurl;
         newImage.description = req.body.description;
         newImage.creator = req.user.twitter.displayName;
-        newImage.creatorid = req.user.twitter.id;
+        newImage.creatorid = req.user.twitter.uniqueUrl;
         newImage.creatorimage = req.user.twitter.profileimage;
         newImage.save(function(err) {
             if (err) console.log(err);
@@ -73,7 +77,7 @@ module.exports = function (app, passport) {
     });
     
     app.get('/delete/:imageid', isLoggedIn, function(req, res) {
-        Image.findOneAndRemove({"_id":req.params.imageid, "creatorid": req.user.twitter.id}, function(err, data) {
+        Image.findOneAndRemove({"_id":req.params.imageid, "creatorid": req.user.twitter.uniqueUrl}, function(err, data) {
             if (err) return err;
             res.redirect('/');
         });

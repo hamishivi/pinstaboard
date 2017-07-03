@@ -13,6 +13,10 @@ p {
   background-color: #d0d0d0;
 }
 
+#addimage {
+  padding: 10px;
+}
+
 #profile {
   height: 40px;
   width: auto;
@@ -21,4 +25,12 @@ p {
 
 #profilediv {
   height: 40px;
+}
+
+.btn {
+  display: none;
+}
+
+.grid-item:hover .btn {
+   display: block; /* On :hover of div show button */
 }

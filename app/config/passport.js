@@ -17,7 +17,7 @@ module.exports = function (passport) {
     passport.use(new TwitterStrategy({
     consumerKey: process.env.CONSUMER_KEY,
     consumerSecret: process.env.CONSUMER_SECRET,
-    callbackURL: "https://pinstaboard.herokuapp.com/auth/twitter/callback"
+    callbackURL: process.env.BASE_URL + "auth/twitter/callback"
   },
     function (request, accessToken, refreshToken, profile, done) {
         process.nextTick(function () {
@@ -25,7 +25,6 @@ module.exports = function (passport) {
                 if (err) {
                     return done(err);
                 }
-
                if (user) {
                     return done(null, user);
                 } else {
@@ -35,13 +34,19 @@ module.exports = function (passport) {
                     newUser.twitter.id = profile.id;
                     newUser.twitter.displayName = profile.displayName;
                     newUser.twitter.profileimage = profile._json.profile_image_url_https;
-                    console.log(profile._json.profile_image_url_https)
-                    newUser.save(function (err) {
+                    User.count({ 'twitter.displayName': profile.displayName }, function (err, count) {
                         if (err) {
-                            throw err;
-                        }
+                            return done(err);
+                         } else {
+                             newUser.twitter.uniqueUrl = profile.displayName + count;
+                         }
+                        newUser.save(function (err) {
+                            if (err) {
+                                throw err;
+                            }
 
-                        return done(null, newUser);
+                            return done(null, newUser);
+                        });
                     });
                 }
             });
